@@ -10,13 +10,13 @@ import Foundation
 print("Hello, World!")
 
 func fibonacci(num: Int) -> Int {
+    let sign: Int = num >= 0 ? 1 : -1
     if (num == 0) {
         return 0
-    } else if (num == 1) || (num == 2) {
-        return 1
+    } else if (abs(num) == 1) || (abs(num) == 2) {
+        return sign
     }
-    
-    return fibonacci(num: num - 1) + fibonacci(num: num - 2)
+    return fibonacci(num: num - sign) + fibonacci(num: num - sign * 2)
 }
 
-print(fibonacci(num: 22))
+print(fibonacci(num: 50))
