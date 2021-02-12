@@ -31,7 +31,8 @@ class squareEquation {
         if (a == 0) {
             return false  //
         }
-        let discriminant: Double = b * b - 4 * a * c
+        let nc = self.c - self.d
+        let discriminant: Double = b * b - 4 * a * nc
         if(discriminant < 0) {
             r1 = -b / (2 * a)
             r2 = r1
@@ -48,7 +49,7 @@ class squareEquation {
     }
 }
 
-let equation = squareEquation(a: 9, b: 4, c: 5, d: 0)
+let equation = squareEquation(a: 1, b: -4, c: -5, d: -5)
 
 print("Equation: \(equation.description())")
 if (equation.solve()) {
