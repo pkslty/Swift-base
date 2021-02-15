@@ -101,7 +101,7 @@ print("Удаляем четные числа и те, которые не де�
 print(arr)
 
 //Метод Эратосфена
-let n: Int = 100
+let n: Int = 100000
 var nPrimeNumbers = [Int?]()
 for i in (0...n) {
     nPrimeNumbers.append(i)
@@ -121,11 +121,12 @@ repeat {
 } while p != n
 
 var primeNumbers = [Int]()
+nPrimeNumbers.remove(at: 0)
+
 for i in nPrimeNumbers {
     if let ii = i {
-        primeNumbers.append((ii))
+        primeNumbers.append(ii)
     }
 }
-primeNumbers.remove(at: 0)
 print("Простые числа не больше \(n):")
 print(primeNumbers)
