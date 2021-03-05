@@ -36,7 +36,7 @@ struct Queue<T: Comparable> {
         var queuePart = [T]()
         
         for i in indicies where i < queue.count {
-            queuePart.append(queue[Int(i)])
+            queuePart.append(queue[i])
         }
         
         return queuePart.count > 0 ? queuePart : nil
