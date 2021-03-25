@@ -22,6 +22,7 @@ class GameScene: SKScene {
     var snake: Snake?
     var food: Food?
     var gameFrame: SKShapeNode?
+    var game = false
     
     override func didMove(to view: SKView) {
         
@@ -62,18 +63,47 @@ class GameScene: SKScene {
             addChild(button)
         }
         
-
-        food = Food(in: CGRect(x: 70, y: -5, width: view.scene!.frame.maxX-170, height: view.scene!.frame.maxY+10))
-        addChild(food!)
-        
-        snake = Snake(at: CGPoint(x: view.scene!.frame.maxX/2, y: view.scene!.frame.maxY/2))
-        addChild(snake!)
+        gameMenu(gameOver: game)
+        //newGame()
         
         self.physicsWorld.contactDelegate = self
         
     }
     
+    func gameMenu(gameOver: Bool) {
+        
+        if gameOver {
+            let gameOver = SKLabelNode(text: "GAME OVER!")
+            gameOver.position = CGPoint(x: (view?.scene!.frame.maxX)!/2, y: (view?.scene!.frame.maxY)!/3*2)
+            gameOver.fontColor = .red
+            gameOver.fontSize = 80
+            gameOver.name = "gameover"
+            addChild(gameOver)
+        }
+        let newGame = SKLabelNode(text: "Start new game")
+        newGame.position = CGPoint(x: (view?.scene!.frame.maxX)!/2, y: (view?.scene!.frame.maxY)!/3)
+        newGame.fontColor = .green
+        newGame.fontSize = 80
+        newGame.name = "newgame"
+        addChild(newGame)
+    }
     
+    func newGame() {
+        
+        var nodes = [SKNode]()
+        for child in self.children {
+            if child.name == "gameover" || child.name == "newgame" {
+                nodes.append(child)
+            }
+        }
+        self.removeChildren(in: nodes)
+        game = true
+        food = Food(in: CGRect(x: 70, y: -5, width: (view?.scene!.frame.maxX)!-170, height: (view?.scene!.frame.maxY)!+10))
+        addChild(food!)
+        
+        snake = Snake(at: CGPoint(x: (view?.scene!.frame.maxX)!/2, y: (view?.scene!.frame.maxY)!/2))
+        addChild(snake!)
+    }
     
     func touchDown(atPoint pos : CGPoint) {
         
@@ -89,10 +119,14 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            for button in buttons {
-                if button.belonging(touch: touch, in: self)  {
-                    button.touching()
-                    snake?.changeDirection(direction: button.symbol)
+            if !game {
+                newGame()
+            } else {
+                for button in buttons {
+                    if button.belonging(touch: touch, in: self)  {
+                        button.touching()
+                        snake?.changeDirection(direction: button.symbol)
+                    }
                 }
             }
         }
@@ -141,20 +175,11 @@ extension GameScene: SKPhysicsContactDelegate {
             addChild(food!)
         case CollisionCategories.frame, CollisionCategories.snakeBody:
             snake?.removeFromParent()
-            self.removeAllChildren()
-            let gameOver = SKLabelNode(text: "GAME OVER!")
-            gameOver.position = CGPoint(x: (view?.scene!.frame.maxX)!/2, y: (view?.scene!.frame.maxY)!/3*2)
-            gameOver.fontColor = .red
-            gameOver.fontSize = 80
-            gameOver.name = "gameover"
-            addChild(gameOver)
+            food?.removeFromParent()
+            //self.removeAllChildren()
+            game = false
             snake = nil
-            /*let newGame = SKLabelNode(text: "Start new game")
-            newGame.position = CGPoint(x: (view?.scene!.frame.maxX)!/2, y: (view?.scene!.frame.maxY)!/3)
-            newGame.fontColor = .green
-            newGame.fontSize = 80
-            newGame.name = "newgame"
-            addChild(newGame)*/
+            gameMenu(gameOver: !game)
             
         default:
             break

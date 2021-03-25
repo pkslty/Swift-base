@@ -24,7 +24,7 @@ class RoundButton: SKShapeNode {
     var diameter: CGFloat
     var touchedColor = SKColor.gray
     var unTouchedColor = SKColor.green
-    var symbolColor = SKColor.red
+    //var symbolColor = SKColor.red
     var symbol: Direction
     var nodes = [SKShapeNode]()
     /*var touching: Bool {
