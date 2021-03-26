@@ -65,6 +65,26 @@ class Food: SKShapeNode {
         self.init(at: CGPoint(x: randX, y: randY))
     }
     
+    func runAction(at point: CGPoint, text: String) {
+        let shockWaveAction: SKAction = {
+            let growAndFadeAction = SKAction.group([SKAction.scale(to: 5, duration: 3),
+                                                    SKAction.fadeOut(withDuration: 3)])
+            
+            let sequence = SKAction.sequence([growAndFadeAction,
+                                              SKAction.removeFromParent()])
+            
+            return sequence
+        }()
+
+        let message = SKLabelNode(text: text)
+
+        message.position = point
+        parent?.addChild(message)
+                
+        message.run(shockWaveAction)
+            
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

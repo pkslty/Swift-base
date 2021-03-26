@@ -26,7 +26,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        backgroundColor = SKColor.lightGray
+        backgroundColor = .gray
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         
         
@@ -36,7 +36,8 @@ class GameScene: SKScene {
         
         gameFrame?.path = UIBezierPath(rect: CGRect(x: 70, y: -5, width: view.scene!.frame.maxX-170, height: view.scene!.frame.maxY+10)).cgPath
         gameFrame?.strokeColor = UIColor.black
-        gameFrame?.lineWidth = 5
+        gameFrame?.fillColor = .lightGray
+        gameFrame?.lineWidth = 1
         gameFrame?.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 70, y: -5, width: view.scene!.frame.maxX-170, height: view.scene!.frame.maxY+10))
         gameFrame?.physicsBody?.categoryBitMask = CollisionCategories.frame
         gameFrame?.physicsBody?.contactTestBitMask = CollisionCategories.snakeHead

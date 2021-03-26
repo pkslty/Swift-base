@@ -111,15 +111,20 @@ class Snake: SKShapeNode {
         case .faster10percent:
             pace *= 0.9
             addPart(at: point)
+            food.runAction(at: point, text: "TEN PERCENT FASTER!")
         case .faster5percent:
             pace *= 0.95
             addPart(at: point)
+            food.runAction(at: point, text: "FIVE PERCENT FASTER!")
         case .slower10percent:
             pace /= 0.9
             addPart(at: point)
+            food.runAction(at: point, text: "TEN PERCENT SLOWER!")
         case .shorter:
             if body.count > 4 {
                 body.removeLast().removeFromParent()
+                food.runAction(at: point, text: "ONE POINT SHORTER!")
+                
             }
         }
     }

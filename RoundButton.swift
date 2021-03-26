@@ -40,6 +40,7 @@ class RoundButton: SKShapeNode {
         self.name = name
         strokeColor = .black
         lineWidth = 5
+        zPosition = 1
         
         let mainNode = SKShapeNode()
         mainNode.name = name
