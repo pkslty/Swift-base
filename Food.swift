@@ -65,23 +65,41 @@ class Food: SKShapeNode {
         self.init(at: CGPoint(x: randX, y: randY))
     }
     
-    func runAction(at point: CGPoint, text: String) {
-        let shockWaveAction: SKAction = {
-            let growAndFadeAction = SKAction.group([SKAction.scale(to: 5, duration: 3),
+    func runAction(at point: CGPoint) {
+        
+        var text: String?
+        
+        switch kind {
+        case .faster10percent:
+            text = "TEN PERCENT FASTER!"
+        case .faster5percent:
+            text = "FIVE PERCENT FASTER!"
+        case .shorter:
+            text = "ONE POINT SHORTER!"
+        case .slower10percent:
+            text = "TEN PERCENT SLOWER!"
+        default:
+            text = nil
+        }
+        
+        if let text = text {
+            let shockWaveAction: SKAction = {
+                let growAndFadeAction = SKAction.group([SKAction.scale(to: 5, duration: 3),
                                                     SKAction.fadeOut(withDuration: 3)])
             
-            let sequence = SKAction.sequence([growAndFadeAction,
+                let sequence = SKAction.sequence([growAndFadeAction,
                                               SKAction.removeFromParent()])
             
-            return sequence
-        }()
+                return sequence
+            }()
 
-        let message = SKLabelNode(text: text)
+            let message = SKLabelNode(text: text)
 
-        message.position = point
-        parent?.addChild(message)
+            message.position = point
+            parent?.addChild(message)
                 
-        message.run(shockWaveAction)
+            message.run(shockWaveAction)
+        }
             
     }
     

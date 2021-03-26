@@ -105,28 +105,29 @@ class Snake: SKShapeNode {
     func eat(_ food: Food) {
         let point = head.position
         color = food.kind.rawValue
+        
         switch food.kind {
         case .longer:
             addPart(at: point)
         case .faster10percent:
+            food.runAction(at: point)
             pace *= 0.9
             addPart(at: point)
-            food.runAction(at: point, text: "TEN PERCENT FASTER!")
         case .faster5percent:
+            food.runAction(at: point)
             pace *= 0.95
             addPart(at: point)
-            food.runAction(at: point, text: "FIVE PERCENT FASTER!")
         case .slower10percent:
+            food.runAction(at: point)
             pace /= 0.9
             addPart(at: point)
-            food.runAction(at: point, text: "TEN PERCENT SLOWER!")
         case .shorter:
             if body.count > 4 {
+                food.runAction(at: point)
                 body.removeLast().removeFromParent()
-                food.runAction(at: point, text: "ONE POINT SHORTER!")
-                
             }
         }
+
     }
     
     required init?(coder aDecoder: NSCoder) {
