@@ -1,1 +1,2 @@
-Домашние задания к курсу Основы языка Swift
+# SnakeGameIOS
+Simple Snake for iOS
