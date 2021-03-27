@@ -26,6 +26,10 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
+        print(UIScreen.main.bounds)
+        print(UIScreen.main.nativeBounds)
+        
+        
         backgroundColor = .gray
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         
@@ -164,9 +168,9 @@ extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
        
         let contactedBodies = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        print(contactedBodies)
+        //print(contactedBodies)
         let collisionBody = contactedBodies - CollisionCategories.snakeHead
-        print(collisionBody)
+        //print(collisionBody)
         
         switch collisionBody {
         case CollisionCategories.food:

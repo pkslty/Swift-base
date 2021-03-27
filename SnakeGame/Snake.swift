@@ -64,25 +64,27 @@ class Snake: SKShapeNode {
         
         switch direction {
         case .down:
-            if moveAngle != Double.pi/2 {
+            if sin(moveAngle) != 1 {
                 moveAngle = Double.pi*3/2
             }
         case .up:
-            if moveAngle != Double.pi*3/2 {
+            if sin(moveAngle) != -1 {
                 moveAngle = Double.pi/2
             }
         case .left:
-            if moveAngle != 0 {
-                moveAngle = -Double.pi
+            if cos(moveAngle) != 1 {
+                moveAngle = Double.pi
             }
         case .right:
-            if moveAngle != -Double.pi {
+            if cos(moveAngle) != -1 {
                 moveAngle = 0
             }
         case .rotateClockwise:
             moveAngle -= Double.pi/2
+
         case .rotateCounterClockwise:
             moveAngle += Double.pi/2
+            
         default:
             break
         }
